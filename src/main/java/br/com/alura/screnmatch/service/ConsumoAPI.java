@@ -22,6 +22,7 @@ public class ConsumoAPI {
             throw new RuntimeException(e);
         }
 
+        // retorna a requisição em json
         return response.body();
     }
 
