@@ -6,6 +6,11 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class ConsumoAPI {
+    /**
+     * Classe que realiza buscas e devolve o resultado em json
+     * @param endereco
+     * @return json
+     */
     public String obterDados(String endereco) {
         HttpClient client = HttpClient.newHttpClient();//É quem inicia a comunicação com o server.
         HttpRequest request = HttpRequest.newBuilder()

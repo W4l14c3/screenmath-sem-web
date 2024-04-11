@@ -5,8 +5,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ConverteDados implements IConverteDados{
-    //mapper é o objeto do jackson responsavel por fazer a conversão
     private ObjectMapper mapper = new ObjectMapper();
+
+    /**
+     * vai converter um json para {@code classe} passada como par&acirc;metro <p>
+     * T para classes genericas.
+     * @return convers&atilde;o do json para uma classe geneica.
+     */
 
 
     @Override
