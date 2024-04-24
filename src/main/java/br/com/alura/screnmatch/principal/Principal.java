@@ -29,9 +29,9 @@ public class Principal {
 
 
         var json = consumoApi.obterDados(EDERECO + nomeSerie.replace(" ", "_") + API_KEY);
-        //Converte o json na Record DadosSeries, criando um objeto dadosSe com os dados da busca.
+        //Converter o json na Record Dados_Series, create an object dadosSe with the search date.
         DadosSeries dadosSeries = conversor.obterDados(json, DadosSeries.class);
-        System.out.println(dadosSeries);
+        System.out.println(dadosSeries);//
 
         // Lista que vai ser carregada com as temporadas
 		List<DadosTemporada> temporadas = new ArrayList<>();
@@ -76,28 +76,47 @@ public class Principal {
 //                .forEach(System.out::println);
 
         //Stream cria uma coleção de dados.
-        List<DadosEpisodio> dadosEpisodios = temporadas.stream()
-                //Cria uma stream dos episodios de cada temporada.
-                .flatMap(t -> t.episodios().stream())
-                .collect(Collectors.toList());
+//        List<DadosEpisodio> dadosEpisodios = temporadas.stream()
+//                //Cria uma stream dos episodios de cada temporada.
+//                .flatMap(t -> t.episodios().stream())
+//                .collect(Collectors.toList());
                 //.toList();// Cria uma lista imutavel
 
         //Exibe um top 5 dos episodios.
-        System.out.println("\nTop 5 episodios");
-        dadosEpisodios.stream()
-                .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))
-                .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed())
-                .limit(5)
-                .forEach(System.out::println);
-        System.out.println("\n");
+//        System.out.println("\nTop 10 episodios");
+//        dadosEpisodios.stream()
+//                .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))
+//                .peek(e -> System.out.println("Primeiro filtro(N/A) " + e))
+//                .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed())
+//                .peek(e -> System.out.println("\nOrdenação " + e))
+//                .limit(10)
+//                .peek(e -> System.out.println("\nLimite " + e))
+//                .map(e -> e.titulo().toUpperCase())
+//                .peek(e -> System.out.println("\nMapeamento " + e))
+//                .forEach(System.out::println);
+//        System.out.println("\n");
+
 
         System.out.println("\nEpisodios e suas temporadas: ");
         List<Episodio> episodios = temporadas.stream()
                 .flatMap(t -> t.episodios().stream()//Stream dos episodios de cada temporada.
                         .map(d -> new Episodio(t.numero(), d))//Stream de novos objetos Episodios com o numero da temporada
                 ).collect(Collectors.toList());
-
         episodios.forEach(System.out::println);
+
+        System.out.println("Digite um trecho do titulo do episódeo");
+        var trechoTitulo = leitura.nextLine();
+
+        Optional<Episodio> episodioBuscado = episodios.stream()
+                .filter(e -> e.getTitulo().toLowerCase().contains(trechoTitulo.toLowerCase())) // filter all episodes titles what contains snippet of title
+                .findFirst(); //Return the first recurrence of filtered element
+        if(episodioBuscado.isPresent()){
+            System.out.println("Episódeo encontrado!");
+            System.out.println("Temporada: " + episodioBuscado.get());
+        }
+        else {
+            System.out.println("Episódeo não encontrado!");
+        }
 
         //Filtra os episodios a partir do ano.
         System.out.println("A partir de que ano você deseja ver os episódios?");
