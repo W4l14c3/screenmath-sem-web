@@ -16,7 +16,7 @@ public class ConsumoAPI {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(endereco))
                 .build();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response = null;// Criamos uma variavel referencia nula.
         try {
             response = client
                     //O metodo send pode gerar uma IOException, pois é um fluxo de dados

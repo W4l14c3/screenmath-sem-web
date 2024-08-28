@@ -10,7 +10,7 @@ public class ConverteDados implements IConverteDados{
     /**
      * vai converter um json para {@code classe} passada como par&acirc;metro <p>
      * T para classes genericas.
-     * @return convers&atilde;o do json para uma classe geneica.
+     * @return convers&atilde;o do json para uma classe generica.
      */
 
 
